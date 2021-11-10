@@ -9,6 +9,8 @@ import Foundation
 
 @propertyWrapper
 class Observable<T> {
+    private (set) var observers: [(T) -> Void] = []
+    
     var value: T
     
     init(value initialValue: T) {
