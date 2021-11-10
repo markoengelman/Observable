@@ -9,25 +9,61 @@ import XCTest
 @testable import Observable
 
 class ObservableTests: XCTestCase {
-    
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func test_init_hasNoSideEffectsOnInjectedValue() {
+        let (sut, value) = makeSUT()
+        XCTAssertEqual(sut.value, value)
+        XCTAssertEqual(sut.wrappedValue, value)
+        XCTAssertIdentical(sut.projectedValue, sut)
     }
     
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func test_observe_storesInjectedBlock() {
+        let (sut, _) = makeSUT()
+        let observationBlock: (String) -> Void = { _ in }
+        sut.observe(observationBlock)
+        XCTAssertEqual(sut.observers.count, 1)
     }
     
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_observationBlock_triggeredOnChange() {
+        let (sut, _) = makeSUT()
+        let exp = expectation(description: "Waiting for change")
+        var blockTriggered = false
+        let observationBlock: (String) -> Void = { _ in
+            blockTriggered = true
+            exp.fulfill()
         }
+        
+        sut.observe(observationBlock)
+        sut.wrappedValue = "a new value"
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertTrue(blockTriggered)
     }
     
+    func test_observationBlock_doesntGetTriggered_onTokenCancelation() {
+        let (sut, _) = makeSUT()
+        let exp = expectation(description: "Waiting for change")
+        exp.isInverted = true
+        var blockTriggered = false
+        
+        let observationBlock: (String) -> Void = { _ in
+            blockTriggered = true
+            exp.fulfill()
+        }
+        
+        let token = sut.observe(observationBlock)
+        token.cancel()
+        sut.wrappedValue = "a new value"
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertFalse(blockTriggered)
+    }
+}
+
+// MARK: - Private
+private extension ObservableTests {
+    func makeSUT() -> (Observable<String>, String) {
+        let value = "value"
+        let sut = Observable(value: value)
+        return (sut, value)
+    }
 }
