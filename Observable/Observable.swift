@@ -19,8 +19,11 @@ class Observable<T> {
     }
     
     var wrappedValue: T {
-        set { value = newValue }
         get { value }
+        set {
+            value = newValue
+            observers.forEach { $0(newValue) }
+        }
     }
     
     var projectedValue: Observable<T> { return self }

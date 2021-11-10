@@ -24,4 +24,21 @@ class ObservableTests: XCTestCase {
         sut.observe(observationBlock)
         XCTAssertEqual(sut.observers.count, 1)
     }
+    
+    func test_observationBlock_triggeredOnChange() {
+        let value = "value"
+        let sut = Observable(value: value)
+        let exp = expectation(description: "Waiting for change")
+        var blockTriggered = false
+        let observationBlock: (String) -> Void = { _ in
+            blockTriggered = true
+            exp.fulfill()
+        }
+        
+        sut.observe(observationBlock)
+        sut.wrappedValue = "a new value"
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertTrue(blockTriggered)
+    }
 }
