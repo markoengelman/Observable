@@ -20,4 +20,6 @@ class Observable<T> {
         set { value = newValue }
         get { value }
     }
+    
+    var projectedValue: Observable<T> { return self }
 }

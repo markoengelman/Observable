@@ -14,5 +14,6 @@ class ObservableTests: XCTestCase {
         let sut = Observable(value: value)
         XCTAssertEqual(sut.value, value)
         XCTAssertEqual(sut.wrappedValue, value)
+        XCTAssertIdentical(sut.projectedValue, sut)
     }
 }
