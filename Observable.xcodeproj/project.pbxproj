@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		53C7CFAD273C4AC300F1190E /* Observable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C7CFA4273C4AC200F1190E /* Observable.framework */; };
 		53C7CFB2273C4AC300F1190E /* ObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7CFB1273C4AC300F1190E /* ObservableTests.swift */; };
-		53C7CFB3273C4AC300F1190E /* Observable.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C7CFA7273C4AC200F1190E /* Observable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53C7CFBD273C4AFC00F1190E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C7CFBC273C4AFC00F1190E /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,9 +24,9 @@
 
 /* Begin PBXFileReference section */
 		53C7CFA4273C4AC200F1190E /* Observable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Observable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		53C7CFA7273C4AC200F1190E /* Observable.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = Observable.h; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		53C7CFAC273C4AC300F1190E /* ObservableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObservableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53C7CFB1273C4AC300F1190E /* ObservableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTests.swift; sourceTree = "<group>"; };
+		53C7CFBC273C4AFC00F1190E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 		53C7CFA6273C4AC200F1190E /* Observable */ = {
 			isa = PBXGroup;
 			children = (
-				53C7CFA7273C4AC200F1190E /* Observable.h */,
+				53C7CFBC273C4AFC00F1190E /* Observable.swift */,
 			);
 			path = Observable;
 			sourceTree = "<group>";
@@ -89,7 +89,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53C7CFB3273C4AC300F1190E /* Observable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +143,7 @@
 				TargetAttributes = {
 					53C7CFA3273C4AC200F1190E = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 					53C7CFAB273C4AC300F1190E = {
 						CreatedOnToolsVersion = 13.1;
@@ -191,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53C7CFBD273C4AFC00F1190E /* Observable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +338,7 @@
 		53C7CFB7273C4AC300F1190E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -358,6 +360,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -365,6 +368,7 @@
 		53C7CFB8273C4AC300F1190E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -393,6 +397,7 @@
 		53C7CFBA273C4AC300F1190E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -414,6 +419,7 @@
 		53C7CFBB273C4AC300F1190E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
