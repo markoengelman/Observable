@@ -24,4 +24,8 @@ class Observable<T> {
     }
     
     var projectedValue: Observable<T> { return self }
+    
+    func observe(_ closure: @escaping (T) -> Void) {
+        observers.append(closure)
+    }
 }

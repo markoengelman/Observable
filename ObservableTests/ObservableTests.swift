@@ -16,4 +16,12 @@ class ObservableTests: XCTestCase {
         XCTAssertEqual(sut.wrappedValue, value)
         XCTAssertIdentical(sut.projectedValue, sut)
     }
+    
+    func test_observe_storesInjectedBlock() {
+        let value = "value"
+        let sut = Observable(value: value)
+        let observationBlock: (String) -> Void = { _ in }
+        sut.observe(observationBlock)
+        XCTAssertEqual(sut.observers.count, 1)
+    }
 }
