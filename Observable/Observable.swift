@@ -7,10 +7,17 @@
 
 import Foundation
 
+@propertyWrapper
 class Observable<T> {
     var value: T
     
     init(value initialValue: T) {
         self.value = initialValue
+        self.wrappedValue = initialValue
+    }
+    
+    var wrappedValue: T {
+        set { value = newValue }
+        get { value }
     }
 }
