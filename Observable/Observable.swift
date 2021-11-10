@@ -7,6 +7,10 @@
 
 import Foundation
 
-class Observable {
+class Observable<T> {
+    var value: T
     
+    init(value initialValue: T) {
+        self.value = initialValue
+    }
 }
