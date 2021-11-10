@@ -9,7 +9,19 @@ import Foundation
 
 @propertyWrapper
 class Observable<T> {
-    private (set) var observers: [(T) -> Void] = []
+    class ObservableToken {
+        private let cancellationClosure: () -> Void
+        
+        init(_ cancellationClosure: @escaping () -> Void) {
+            self.cancellationClosure = cancellationClosure
+        }
+        
+        func cancel() {
+            cancellationClosure()
+        }
+    }
+    
+    private (set) var observers: [UUID: (T) -> Void] = [:]
     
     var value: T
     
@@ -22,13 +34,17 @@ class Observable<T> {
         get { value }
         set {
             value = newValue
-            observers.forEach { $0(newValue) }
+            observers.forEach { $0.value(newValue) }
         }
     }
     
     var projectedValue: Observable<T> { return self }
     
-    func observe(_ closure: @escaping (T) -> Void) {
-        observers.append(closure)
+    @discardableResult
+    func observe(_ closure: @escaping (T) -> Void) -> ObservableToken {
+        let id = UUID()
+        let token = ObservableToken { [weak self] in self?.observers.removeValue(forKey: id) }
+        observers[id] = closure
+        return token
     }
 }
